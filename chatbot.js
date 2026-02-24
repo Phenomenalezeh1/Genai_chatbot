@@ -342,9 +342,10 @@ class ChatBot {
                 confidence: true
             };
         } else {
+            // No matching keywords found
             return {
                 type: 'no_match',
-                answer: "I'm not sure I understand that question. Try asking about:\n• Admissions & Application\n• Academic Programs\n• Tuition & Financial Aid\n• Campus Life\n• Technical Support\n\nOr view popular questions below!",
+                answer: "Sorry, I don't have an answer to that question. No matching keywords were found in my database.\n\nI can help with questions about:\n• Admissions & Application\n• Academic Programs\n• Tuition & Financial Aid\n• Campus Life & Services\n• Technical Support\n• Orientation & Student Services\n• Academic Appeals\n• Campus Safety & Wellness\n\nPlease try rephrasing your question or choose from the suggested topics above.",
                 confidence: false
             };
         }
