@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student FAQ Chatbot</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="chatbot-container">
+        <!-- Header -->
+        <div class="chatbot-header">
+            <h1>Student Hub Assistant</h1>
+            <p>Ask me anything about your studies!</p>
+        </div>
+
+        <!-- Chat Messages Display -->
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot-message">
+                <div class="message-content">
+                    Hello! 👋 I'm your Student Assistant. I can help you with questions about:
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li>Admissions & Registration</li>
+                        <li>Academic Programs</li>
+                        <li>Tuition & Financial Aid</li>
+                        <li>Campus Life & Services</li>
+                        <li>Technical & IT Support</li>
+                    </ul>
+                    What can I help you with today?
+                </div>
+                <span class="message-time">just now</span>
+            </div>
+        </div>
+
+        <!-- Input Area -->
+        <div class="chat-input-area">
+            <input 
+                type="text" 
+                id="userInput" 
+                class="chat-input" 
+                placeholder="Type your question here..." 
+                autocomplete="off"
+            >
+            <button id="sendBtn" class="send-button">Send</button>
+        </div>
+
+        <!-- Suggested Questions -->
+        <div class="suggested-questions" id="suggestedQuestions">
+            <p style="margin: 0 0 10px 0; font-size: 12px; color: #666;">Popular questions:</p>
+            <div class="suggestion-buttons">
+                <button class="suggestion-btn" onclick="setSuggestion('How do I apply for admission?')">Apply for Admission</button>
+                <button class="suggestion-btn" onclick="setSuggestion('What financial aid options are available?')">Financial Aid</button>
+                <button class="suggestion-btn" onclick="setSuggestion('How do I register for classes?')">Class Registration</button>
+                <button class="suggestion-btn" onclick="setSuggestion('What technical support is available?')">Tech Support</button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="chatbot-footer">
+            <small>This is an automated assistant. For urgent matters, contact Student Services directly.</small>
+        </div>
+    </div>
+
+    <script src="chatbot.js"></script>
+</body>
+</html>
