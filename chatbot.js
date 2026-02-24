@@ -95,48 +95,6 @@ const faqDatabase = [
         answer: "Scholarship Types:\n• Academic Excellence: Up to $5,000/semester\n• Need-Based: Varies based on FAFSA\n• Departmental: $2,000-$4,000/semester\n• Diversity & Inclusion: Up to $6,000/semester\n• Athletic: Full to partial tuition coverage\n• Alumni Legacy: Additional $1,000/semester\nMost scholarships are renewable annually with maintained GPA (minimum 2.5 or higher)."
     },
 
-    // ===== CAMPUS LIFE & SERVICES =====
-    {
-        id: 13,
-        category: "Campus",
-        keywords: ["housing", "dorm", "on campus", "residence hall"],
-        question: "Is on-campus housing available?",
-        answer: "Yes, we provide on-campus housing options:\n• Freshman Residence Halls: First-year students (mandatory)\n• Upperclass Housing: Apartments and dorms\n• Honors Housing: Alternative learning communities\n• Graduate Housing: Limited availability\nHousing cost: $3,500-$5,000 per semester (includes utilities)\nApplication opens March 1st for fall housing. On-campus housing includes meal plan options."
-    },
-  
-    {
-        id: 14,
-        category: "Campus",
-        keywords: ["health", "medical", "clinic", "health center"],
-        question: "What health services are available?",
-        answer: "Campus Health Services Include:\n• Primary care physicians\n• Counseling and mental health services\n• Urgent care (24/7 on campus)\n• Sexual health services\n• Sports medicine and injury care\n• Pharmacy (prescription discounts)\n• Vaccinations and wellness programs\nAll services are included in student health fees. Off-campus care covered through university health insurance."
-    },
- 
-    {
-        id: 15,
-        category: "Campus",
-        keywords: ["library", "hours", "resources", "study"],
-        question: "What library facilities and hours are available?",
-        answer: "Main Library Services:\n• 2 million+ book collection\n• 24/7 access (valid ID required)\n• Individual and group study spaces\n• Computer labs with specialized software\n• Printing and scanning services\n• Librarian assistance and research help\n• WiFi and charging stations\nLibrary hours: Monday-Friday 7am-2am, Weekend 10am-2am. Laptops available for checkout."
-    },
-
-    // ===== TECHNICAL & IT SUPPORT =====
-    {
-        id: 16,
-        category: "Technical",
-        keywords: ["it support", "technical support", "computer help", "tech issue"],
-        question: "What technical support is available?",
-        answer: "IT Support Services:\n• Help Desk: Available 24/7 (Monday-Friday in-person)\n• Phone Support: 1-800-TECH-HELP\n• Email Support: support@Conestogacollege.edu\n• Live Chat: Available on IT website\n• In-person help at Tech Centers\n• Remote desktop support for complex issues\nAverage response time: 2 hours for emails, immediate for in-person visits."
-    },
-
-    {
-        id: 17,
-        category: "Technical",
-        keywords: ["software", "discount", "free software", "Microsoft Office"],
-        question: "What software and tools can I get for free?",
-        answer: "Free Software & Tools for Students:\n• Microsoft Office 365 (Word, Excel, PowerPoint)\n• Adobe Creative Suite (Photoshop, Illustrator)\n• Antivirus software (McAfee)\n• IDEs and development tools (Visual Studio, JetBrains)\n• Google Workspace tools\n• Learning management system (Canvas)\n• Project management tools (Asana, Slack)\nDownload from the Software License Portal using your student credentials."
-    },
-
     // ===== GENERAL POLICIES & PROCEDURES =====
     {
         id: 18,
@@ -175,13 +133,6 @@ const faqDatabase = [
         question: "What if I miss my mandatory program orientation?",
         answer: "If the session was virtual, it should be recorded and posted on eConestoga before the third week of class. Reach out to your instructor if you didn't receive it."
     },
-    {
-        id: 23,
-        category: "Student Services",
-        keywords: ["one card", "student id", "card", "transit", "library"],
-        question: "What is the ONE Card and why do I need it?",
-        answer: "The ONE Card is your official student ID. It's used for accessing campus transit discounts (if eligible), library, printing, Recreation Centre, and other services."
-    },
 
     // ===== ACADEMIC SUPPORT & APPEALS =====
     {
@@ -198,33 +149,24 @@ const faqDatabase = [
         question: "How do I dispute a grade or academic decision?",
         answer: "Find information about academic appeals and academic integrity procedures on the college website or ask your Student Success Advisor (SSA) for help."
     },
-
-    // ===== CAMPUS SAFETY & WELLNESS =====
     {
         id: 26,
-        category: "Campus",
-        keywords: ["safety", "emergency", "concern", "security", "911"],
-        question: "What do I do if I have a safety or emergency concern on campus?",
-        answer: "Contact the college's Safety and Security office immediately. Off-campus, call emergency services (911)."
-    },
-    {
-        id: 27,
-        category: "Wellness",
-        keywords: ["mental health", "counseling", "peer support", "medical", "good2talk"],
-        question: "Where can I find mental health support?",
-        answer: "Conestoga offers counselling, peer support, and medical help. After-hours assistance is available via services like Good2Talk."
+        category: "Academic",
+        keywords: ["support", "tutoring", "tutor", "study help", "academic support"],
+        question: "What academic support and tutoring services are available?",
+        answer: "We offer comprehensive academic support including:\n• Free tutoring in all subjects\n• Study groups and peer mentoring\n• Writing centers for essay assistance\n• Math labs for quantitative courses\n• One-on-one tutoring sessions\n• Online tutoring resources\n• Study skills workshops\nContact your Student Success Advisor (SSA) or visit the Academic Support Center to get started with tutoring services."
     },
 
     // ===== FINANCIAL AID SPECIFICS =====
     {
-        id: 28,
+        id: 27,
         category: "Financial",
         keywords: ["scholarship", "bursary", "award", "difference", "financial aid"],
         question: "What's the difference between scholarships, bursaries, and awards?",
         answer: "Financial Aid Types:\n• Awards: Recognize achievement or contribution.\n• Bursaries: Based on financial need.\n• Scholarships: Based mainly on academic excellence."
     },
     {
-        id: 29,
+        id: 28,
         category: "Financial",
         keywords: ["apply", "award", "bursary", "general awards application", "gaa"],
         question: "How do I apply for awards and bursaries?",
@@ -279,6 +221,47 @@ class ChatBot {
         this.currentQuestion = null;
     }
 
+    // Calculate Levenshtein distance (edit distance) between two words
+    // This measures how many single-character edits are needed to change one word to another
+    static levenshteinDistance(str1, str2) {
+        const len1 = str1.length;
+        const len2 = str2.length;
+        const matrix = Array(len2 + 1).fill(null).map(() => Array(len1 + 1).fill(0));
+
+        // Initialize first column and row
+        for (let i = 0; i <= len1; i++) matrix[0][i] = i;
+        for (let j = 0; j <= len2; j++) matrix[j][0] = j;
+
+        // Calculate distances
+        for (let j = 1; j <= len2; j++) {
+            for (let i = 1; i <= len1; i++) {
+                const cost = str1[i - 1] === str2[j - 1] ? 0 : 1;
+                matrix[j][i] = Math.min(
+                    matrix[j][i - 1] + 1,      // deletion
+                    matrix[j - 1][i] + 1,      // insertion
+                    matrix[j - 1][i - 1] + cost // substitution
+                );
+            }
+        }
+
+        return matrix[len2][len1];
+    }
+
+    // Check if two words match (exact, contained, or within 2 character edits)
+    static wordsMatch(userWord, keyword) {
+        // Exact match
+        if (keyword === userWord) return true;
+
+        // Substring match
+        if (keyword.includes(userWord) && userWord.length > 2) return true;
+
+        // Fuzzy match - allow up to 2 character differences (Levenshtein distance)
+        const distance = ChatBot.levenshteinDistance(userWord, keyword);
+        const maxDistance = Math.max(2, Math.floor(Math.min(userWord.length, keyword.length) * 0.3));
+        
+        return distance <= maxDistance && distance <= 2;
+    }
+
     // Fuzzy string matching for better keyword detection
     static calculateSimilarity(str1, str2) {
         const s1 = str1.toLowerCase();
@@ -298,7 +281,7 @@ class ChatBot {
         return matches / Math.max(s1.length, s2.length);
     }
 
-    // Find best matching FAQ answer
+    // Find best matching FAQ answer - STRICT KEYWORD MATCHING WITH FUZZY MISSPELLING SUPPORT
     findBestMatch(userMessage) {
         const sanitized = InputSanitizer.sanitize(userMessage).toLowerCase();
         
@@ -307,23 +290,31 @@ class ChatBot {
         let bestMatch = null;
         let bestScore = 0;
 
+        // Extract words from user input
+        const userWords = sanitized.split(/\s+/).filter(w => w.length > 0);
+
         for (let faq of faqDatabase) {
-            // Check question text match
-            const questionScore = ChatBot.calculateSimilarity(sanitized, faq.question);
-            
-            // Check keyword matches
+            // Check if any user word matches any keyword (including misspellings)
             let keywordScore = 0;
-            for (let keyword of faq.keywords) {
-                const similarity = ChatBot.calculateSimilarity(sanitized, keyword);
-                keywordScore = Math.max(keywordScore, similarity);
+            let foundKeywordMatch = false;
+
+            for (let userWord of userWords) {
+                for (let keyword of faq.keywords) {
+                    // Use fuzzy matching that handles misspellings up to 2 characters
+                    if (ChatBot.wordsMatch(userWord, keyword)) {
+                        foundKeywordMatch = true;
+                        keywordScore = ChatBot.calculateSimilarity(userWord, keyword);
+                        break;
+                    }
+                }
+                if (foundKeywordMatch) break;
             }
 
-            // Combine scores (keywords weighted slightly higher for specificity)
-            const finalScore = (questionScore * 0.4) + (keywordScore * 0.6);
-
-            if (finalScore > bestScore && finalScore > 0.3) {
-                bestScore = finalScore;
+            // Only return match if keyword was explicitly found (including fuzzy matches)
+            if (foundKeywordMatch && keywordScore > 0.3) {
+                bestScore = keywordScore;
                 bestMatch = faq;
+                break; // Return first matching keyword (exact or fuzzy)
             }
         }
 
